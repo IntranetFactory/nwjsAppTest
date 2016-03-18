@@ -1,14 +1,14 @@
 {
   "main": "app.html",
   "name": "NowAssistant",
-  "version": "1.4.3",
+  "version": "1.0.0",
   "app-id": "com.aluxian.messengerfordesktop",
   "chromium-args": "--disable-setuid-sandbox",
   "window": {
     "width": 800,
     "height": 600,
     "title": "NowAssistant",
-    "icon": "images/icon.png",
+    "icon": "images/icon_128.png",
     "toolbar": true,
     "show": true
   },

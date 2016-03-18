@@ -4,7 +4,7 @@ Name "NowAssistant"
 BrandingText "aluxian.com"
 
 # set the icon
-!define MUI_ICON "icon.ico"
+!define MUI_ICON "icon_128.ico"
 
 # define the resulting installer's name:
 OutFile "..\dist\NowAssistantSetup.exe"

@@ -9,10 +9,12 @@ var settings = require('./components/settings');
 var windowBehaviour = require('./components/window-behaviour');
 var notification = require('./components/notification');
 var dispatcher = require('./components/dispatcher');
+var cardNofitications = require('./components/cardNotifications');
 
 // Ensure there's an app shortcut for toast notifications to work on Windows
 if (platform.isWindows) {
-  gui.App.createShortcut(process.env.APPDATA + "\\Microsoft\\Windows\\Start Menu\\Programs\\NowAssistant.lnk");
+  // debugger;
+  // gui.App.createShortcut(process.env.APPDATA + "\\Microsoft\\Windows\\Start Menu\\Programs\\NowAssistant.lnk");
 }
 
 // Add dispatcher events
@@ -30,7 +32,7 @@ windowBehaviour.bindWindowStateEvents(win);
 
 // Check for update
 if (settings.checkUpdateOnLaunch) {
-  updater.checkAndPrompt(gui.App.manifest, win);
+  // updater.checkAndPrompt(gui.App.manifest, win);
 }
 
 // Run as menu bar app
@@ -65,11 +67,13 @@ iframe.onload = function() {
   windowBehaviour.bindEvents(win, iframe.contentWindow);
 
   // Watch the iframe periodically to sync the badge and the title
-  windowBehaviour.syncBadgeAndTitle(win, document, iframe.contentDocument);
+  // windowBehaviour.syncBadgeAndTitle(win, document, iframe.contentDocument);
 
   // Listen for ESC key press
   windowBehaviour.closeWithEscKey(win, iframe.contentDocument);
 };
+
+cardNofitications.refresh(win);
 
 // Reload the app periodically until it loads
 var reloadIntervalId = setInterval(function() {

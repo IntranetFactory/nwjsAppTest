@@ -38,7 +38,7 @@ module.exports = {
         win.close();
         return false;
       }
-    }
+    };
   },
 
   /**
