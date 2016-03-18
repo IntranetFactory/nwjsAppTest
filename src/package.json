@@ -1,0 +1,26 @@
+{
+  "main": "app.html",
+  "name": "Now Assistant",
+  "version": "1.0.0",
+  "app-id": "com.adenin.mps",
+  "chromium-args": "--disable-setuid-sandbox",
+  "window": {
+    "width": 800,
+    "height": 600,
+    "title": "Now Assistant",
+    "icon": "images/icon.png",
+    "toolbar": true,
+    "show": true
+  },
+  "webkit": {
+    "plugin": true
+  },
+  "dependencies": {
+    "async": "^1.0.0",
+    "auto-launch": "^0.1.18",
+    "jfs": "^0.2.5",
+    "request": "^2.56.0",
+    "semver": "^4.3.5"
+  },
+  "manifestUrl": "https://raw.githubusercontent.com/IntranetFactory/nwjsAppTest/master/src/package.json",
+}
