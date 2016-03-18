@@ -2,8 +2,8 @@
   "name": "NowAssistant",
   "version": "1.0.0",
   "repository": {
-    "type": "https",
-    "url": "https://github.com/IntranetFactory/nwjsAppTest.git"
+    "type": "git",
+    "url": "git@github.com:IntranetFactory/nwjsAppTest.git"
   },
   "scripts": {
     "postinstall": "(cd src && npm install)"

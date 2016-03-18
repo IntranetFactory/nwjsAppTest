@@ -1,7 +1,7 @@
 !include "MUI2.nsh"
 
-Name "Now Assistant"
-BrandingText "adenin.com"
+Name "NowAssistant"
+BrandingText "aluxian.com"
 
 # set the icon
 !define MUI_ICON "icon.ico"
@@ -10,13 +10,13 @@ BrandingText "adenin.com"
 OutFile "..\dist\NowAssistantSetup.exe"
 
 # set the installation directory
-InstallDir "$PROGRAMFILES\Now Assistant\"
+InstallDir "$PROGRAMFILES\NowAssistant for Desktop\"
 
 # app dialogs
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_INSTFILES
 
-!define MUI_FINISHPAGE_RUN_TEXT "Start Now Assistant"
+!define MUI_FINISHPAGE_RUN_TEXT "Start NowAssistant"
 !define MUI_FINISHPAGE_RUN $INSTDIR\NowAssistant.exe
 
 !insertmacro MUI_PAGE_FINISH
@@ -35,12 +35,12 @@ Section
   File /r ..\build\NowAssistant\win32\*
 
   # create the uninstaller
-  WriteUninstaller "$INSTDIR\Uninstall Now Assistant.exe"
+  WriteUninstaller "$INSTDIR\Uninstall NowAssistant for Desktop.exe"
 
   # create shortcuts in the start menu and on the desktop
-  CreateShortCut "$SMPROGRAMS\Now Assistant.lnk" "$INSTDIR\NowAssistant.exe"
-  CreateShortCut "$SMPROGRAMS\Uninstall Now Assistant.lnk" "$INSTDIR\Uninstall Now Assistant.exe"
-  CreateShortCut "$DESKTOP\Now Assistant.lnk" "$INSTDIR\NowAssistant.exe"
+  CreateShortCut "$SMPROGRAMS\NowAssistant.lnk" "$INSTDIR\NowAssistant.exe"
+  CreateShortCut "$SMPROGRAMS\Uninstall NowAssistant for Desktop.lnk" "$INSTDIR\Uninstall NowAssistant for Desktop.exe"
+  CreateShortCut "$DESKTOP\NowAssistant.lnk" "$INSTDIR\NowAssistant.exe"
 
 SectionEnd
 
@@ -51,8 +51,8 @@ Section "Uninstall"
   RMDir /r $INSTDIR
 
   # delete the shortcuts
-  Delete "$SMPROGRAMS\Now Assistant.lnk"
-  Delete "$SMPROGRAMS\Uninstall Now Assistant.lnk"
-  Delete "$DESKTOP\Now Assistant.lnk"
+  Delete "$SMPROGRAMS\NowAssistant.lnk"
+  Delete "$SMPROGRAMS\Uninstall NowAssistant for Desktop.lnk"
+  Delete "$DESKTOP\NowAssistant.lnk"
 
 SectionEnd
