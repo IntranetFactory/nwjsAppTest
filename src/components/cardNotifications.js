@@ -3,7 +3,7 @@
  */
 
 var win = false;
-var http = require('http');
+var https = require('https');
 
 var API_RELATIVE_URL = "/api/adenin.Now.Service/CardStatus";
 var serverUrl = 'https://mps.adenin.com';
@@ -36,43 +36,55 @@ function setExtensionIconHelper(icon) {
 }
 
 function updateBadge(apiUrl) {
-  var xhr = new XMLHttpRequest();
-  xhr.responseType = "json";
-  xhr.withCredentials = true;
-  xhr.open("GET", apiUrl, true);
 
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4) {
-      var status = xhr.status;
-      var statusText = xhr.statusText;
+  https.get(apiUrl, function(response) {
+    var status = response.statusCode;
+    var statusText = response.statusMessage;
 
-      if (status === 200 && statusText === "OK") {
-        var response = xhr.response;
-        if (response.ErrorCode === 0) {
-          var count = response.Data.visibleCardInstancesCount;
+    response.on('data', function(data){
+      var dataStr = data.toString();
+      var data = JSON.parse(dataStr);
+      debugger;
+    });
+  }).on('error', function(error) {
+    console.log('Error message' + error);
+  });
 
-          setBadgeTextHelper(count + "");
-          setExtensionIconHelper("green");
-        } else if (response.ErrorCode === 401) {
-          // set error icon on browserAction
-          var errorText = response.Data.ErrorText;
-
-          setBadgeTextHelper("");
-          setExtensionIconHelper("red");
-        } else if (response.ErrorCode === 404) {
-          // something special should be done here but its not specified yet
-        }
-      } else if (status === 404 && statusText === "Not Found") {
-        // something special should be done here but its not specified yet
-      } else {
-        // set error icon on browserAction
-        setBadgeTextHelper("");
-        setExtensionIconHelper("red");
-      }
-    }
-  };
-
-  xhr.send();
+  // var xhr = new XMLHttpRequest();
+  // xhr.responseType = "json";
+  // xhr.withCredentials = true;
+  // xhr.open("GET", apiUrl, true);
+  //
+  // xhr.onreadystatechange = function() {
+  //   if (xhr.readyState === 4) {
+  //
+  //     if (status === 200 && statusText === "OK") {
+  //       var response = xhr.response;
+  //       if (response.ErrorCode === 0) {
+  //         var count = response.Data.visibleCardInstancesCount;
+  //
+  //         setBadgeTextHelper(count + "");
+  //         setExtensionIconHelper("green");
+  //       } else if (response.ErrorCode === 401) {
+  //         // set error icon on browserAction
+  //         var errorText = response.Data.ErrorText;
+  //
+  //         setBadgeTextHelper("");
+  //         setExtensionIconHelper("red");
+  //       } else if (response.ErrorCode === 404) {
+  //         // something special should be done here but its not specified yet
+  //       }
+  //     } else if (status === 404 && statusText === "Not Found") {
+  //       // something special should be done here but its not specified yet
+  //     } else {
+  //       // set error icon on browserAction
+  //       setBadgeTextHelper("");
+  //       setExtensionIconHelper("red");
+  //     }
+  //   }
+  // };
+  //
+  // xhr.send();
 }
 
 /*
