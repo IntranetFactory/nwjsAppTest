@@ -7,6 +7,7 @@ var https = require('https');
 
 var API_RELATIVE_URL = "/api/adenin.Now.Service/CardStatus";
 var serverUrl = 'https://mps.adenin.com';
+var domainName = 'mps.adenin.com';
 var apiUrl = false;
 var intervalId = false;
 
@@ -36,19 +37,59 @@ function setExtensionIconHelper(icon) {
 }
 
 function updateBadge(apiUrl) {
+  var cookies = win.cookies.getAll({ domain: domainName }, function(cookies) {
+    var cookieStr = '';
+    if (cookies && cookies.forEach) {
+      cookies.forEach(function (cookie, index) {
+        cookieStr = cookieStr + cookie.name + '=' + cookie.value + ';';
+      });
+    }
 
-  https.get(apiUrl, function(response) {
-    var status = response.statusCode;
-    var statusText = response.statusMessage;
+    console.log('Cookies: ' + cookieStr);
 
-    response.on('data', function(data){
-      var dataStr = data.toString();
-      var data = JSON.parse(dataStr);
-      debugger;
+    var requestOptions = {
+      hostname: domainName,
+      path: API_RELATIVE_URL,
+      method: 'GET',
+      port: 443,
+      headers: {
+        cookie: cookieStr
+      }
+    };
+
+    var request = https.request(requestOptions, function(response) {
+      var status = response.statusCode;
+      var statusText = response.statusMessage;
+
+      response.on('data', function(responseData) {
+        var responseStr = responseData.toString();
+        var response = JSON.parse(responseStr);
+
+        if (response.ErrorCode === 0) {
+          var countObj = response.Data.cardInstanceCount;
+
+          var totalCount = countObj.newLow + countObj.newNormal + countObj.newHigh;
+
+          setBadgeTextHelper(totalCount + "");
+          setExtensionIconHelper("green");
+        } else if (response.ErrorCode === 401) {
+          // set error icon on browserAction
+          var errorText = response.Data.ErrorText;
+
+          setBadgeTextHelper("");
+          setExtensionIconHelper("red");
+        } else if (response.ErrorCode === 404) {
+          // something special should be done here but its not specified yet
+        }
+
+      });
+    }).on('error', function(error) {
+      console.log('Error message' + error);
     });
-  }).on('error', function(error) {
-    console.log('Error message' + error);
+    request.end();
+
   });
+
 
   // var xhr = new XMLHttpRequest();
   // xhr.responseType = "json";
@@ -60,20 +101,6 @@ function updateBadge(apiUrl) {
   //
   //     if (status === 200 && statusText === "OK") {
   //       var response = xhr.response;
-  //       if (response.ErrorCode === 0) {
-  //         var count = response.Data.visibleCardInstancesCount;
-  //
-  //         setBadgeTextHelper(count + "");
-  //         setExtensionIconHelper("green");
-  //       } else if (response.ErrorCode === 401) {
-  //         // set error icon on browserAction
-  //         var errorText = response.Data.ErrorText;
-  //
-  //         setBadgeTextHelper("");
-  //         setExtensionIconHelper("red");
-  //       } else if (response.ErrorCode === 404) {
-  //         // something special should be done here but its not specified yet
-  //       }
   //     } else if (status === 404 && statusText === "Not Found") {
   //       // something special should be done here but its not specified yet
   //     } else {
