@@ -20,7 +20,7 @@ gulp.task 'clean', ->
       .pipe $.nodeWebkitBuilder
         platforms: [platform]
         version: '0.12.3'
-        winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon.ico'
+        winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon_128.ico'
         macIcns: './assets-osx/icon.icns'
         macZip: true
         macPlist:
@@ -40,7 +40,7 @@ gulp.task 'clean', ->
       .pipe $.nodeWebkitBuilder
         platforms: [platform]
         version: '0.12.3'
-        winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon.ico'
+        winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon_128.ico'
         macIcns: './assets-osx/icon.icns'
         macZip: true
         macPlist:

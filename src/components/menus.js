@@ -58,7 +58,7 @@ module.exports = {
         settings.launchOnStartup = this.checked;
 
         var launcher = new AutoLaunch({
-          name: 'Messenger',
+          name: 'Now Assistant',
           isHidden: true // hidden on launch - only works on a mac atm
         });
 
@@ -195,7 +195,7 @@ module.exports = {
       type: 'menubar'
     });
 
-    menu.createMacBuiltin('Messenger');
+    menu.createMacBuiltin('Now Assistant');
     var submenu = menu.items[0].submenu;
 
     submenu.insert(new gui.MenuItem({
@@ -235,14 +235,14 @@ module.exports = {
     }));
 
     menu.append(new gui.MenuItem({
-      label: 'Show Messenger',
+      label: 'Show Now Assistant',
       click: function() {
         win.show();
       }
     }));
 
     menu.append(new gui.MenuItem({
-      label: 'Quit Messenger',
+      label: 'Quit Now Assistant',
       click: function() {
         win.close(true);
       }
@@ -270,14 +270,14 @@ module.exports = {
     }
 
     var tray = new gui.Tray({
-      icon: 'images/icon_' + (platform.isOSX ? 'menubar.tiff' : 'tray.png')
+      icon: 'images/icon_' + (platform.isOSX ? 'menubar.tiff' : 'icon_64.png')
     });
 
     tray.on('click', function() {
       win.show();
     });
 
-    tray.tooltip = 'Messenger for Desktop';
+    tray.tooltip = 'Now Asistant for Desktop';
     tray.menu = this.createTrayMenu(win);
 
     // keep the object in memory

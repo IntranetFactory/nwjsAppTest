@@ -24,6 +24,11 @@ function setBadgeTextHelper(text) {
   win.setBadgeLabel(text);
 }
 
+function setBadgeBackgroundColorHelper(color) {
+  // this is not supproted in nw.js 0.12.3
+  // and I didn't see that it is supported in nw.js 0.13.1
+}
+
 /**
  * @icon - one of [red, green]
  * red is error icon, green is normal icon
@@ -45,8 +50,6 @@ function updateBadge(apiUrl) {
       });
     }
 
-    console.log('Cookies: ' + cookieStr);
-
     var requestOptions = {
       hostname: domainName,
       path: API_RELATIVE_URL,
@@ -66,12 +69,32 @@ function updateBadge(apiUrl) {
         var response = JSON.parse(responseStr);
 
         if (response.ErrorCode === 0) {
-          var countObj = response.Data.cardInstanceCount;
+          var counter = response.Data.cardInstanceCount;
 
-          var totalCount = countObj.newLow + countObj.newNormal + countObj.newHigh;
+          var newNormalHigh = counter.newHigh + counter.newNormal;
+          var countTotal = counter.newLow + newNormalHigh;
 
-          setBadgeTextHelper(totalCount + "");
-          setExtensionIconHelper("green");
+          // hide bade if we have no new cards
+          if(countTotal === 0) {
+            setBadgeTextHelper("");
+          } else {
+            setBadgeTextHelper(countTotal + "");
+          }
+
+          if (newNormalHigh === 0) {
+            // only low priority == green badge
+            setBadgeBackgroundColorHelper([0, 255, 0, 128]);
+          } else {
+            // red badge
+            setBadgeBackgroundColorHelper([255, 0, 0, 128]);
+          }
+
+          if (countTotal === 0 || newNormalHigh === 0) {
+            setExtensionIconHelper("green");
+          } else {
+            setExtensionIconHelper("red");
+          }
+
         } else if (response.ErrorCode === 401) {
           // set error icon on browserAction
           var errorText = response.Data.ErrorText;
