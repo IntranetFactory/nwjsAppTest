@@ -9,7 +9,6 @@
     "height": 600,
     "title": "NowAssistant",
     "icon": "images/icon_128.png",
-    "toolbar": true,
     "show": true
   },
   "webkit": {
