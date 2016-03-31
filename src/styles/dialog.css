@@ -9,7 +9,7 @@
 .dialog .background {
   background: white;
   position: absolute;
-  opacity: 0.8;
+  opacity: 0.6;
   top: 0;
   left: 0;
   width: 100%;
@@ -28,13 +28,37 @@
 }
 
 .dialog .title {
-
+  font-size: 24px;
 }
 
 .dialog .form {
-
+  margin: 4px 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 .dialog .field {
+  padding: 4px 2px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 
+.field .label {
+  font-size: 16px;
+  flex: 2;
+  align-self: center;
+}
+
+.field .text-input {
+  font-size: 16px;
+  padding: 8px 4px;
+  flex: 10;
+}
+
+.field .button {
+  font-size: 16px;
+  width: 125px;
+  margin: 0 4px;
+  padding: 4px 0;
 }

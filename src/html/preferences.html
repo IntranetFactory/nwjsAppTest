@@ -1,19 +1,18 @@
 <template id="dialog">
   <div class="dialog">
-    <div class="background">
-      <div class="content">
-        <div class="title">
-          <h4>Preferences</h4>
+    <div class="background"></div>
+    <div class="content">
+      <div class="title">
+        <h4>Preferences</h4>
+      </div>
+      <div class="form">
+        <div class="field">
+          <label for="serverUrl" class="label">Server Url</label>
+          <input type="text" class="text-input" id="serverUrl" value="">
         </div>
-        <div class="form">
-          <div class="field">
-            <label for="serverUrl">Server Url</label>
-            <input type="text" id="serverUrl" value="">
-          </div>
-          <div class="field">
-            <button type="button" id="save">Save</button>
-            <button type="button" id="cancel">Cancel</button>
-          </div>
+        <div class="field">
+          <button type="button" class="button" id="save">Save</button>
+          <button type="button" class="button" id="cancel">Cancel</button>
         </div>
       </div>
     </div>

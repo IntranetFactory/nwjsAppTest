@@ -9,7 +9,8 @@ var DEFAULT_SETTINGS = {
   autoHideSidebar: false,
   asMenuBarAppOSX: false,
   windowState: {},
-  theme: 'default'
+  theme: 'default',
+  serverUrl: 'https://mps.adenin.com'
 };
 
 var db = new Store(path.join(gui.App.dataPath, 'preferences.json'));

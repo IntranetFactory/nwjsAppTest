@@ -1,5 +1,5 @@
 
-
+var settings = require('./settings');
 
 
 function openPreferences(win) {
@@ -10,19 +10,17 @@ function openPreferences(win) {
   var content = prefImport.import;
   var dialogTemplate = content.getElementById('dialog');
   var clone = document.importNode(dialogTemplate.content, true);
-  // console.log(dialogTemplate.content);
   var body = document.body;
   body.appendChild(clone);
 
-  var dialog = body.getElementsByClassName('dialog')[0];
+  var dialog = body.querySelector('.dialog');
   if (dialog) {
     var background = dialog.querySelector('.background');
     var saveButton = dialog.querySelector('#save');
     var cancelButton = dialog.querySelector('#cancel');
-    console.log('if works');
-    console.log(background);
-    console.log(saveButton);
-    console.log(cancelButton);
+    var serverUrlInput = dialog.querySelector('#serverUrl');
+
+    serverUrlInput.value = settings.serverUrl;
 
     background.addEventListener('click', function(event) {
       var target = event.target;
@@ -33,6 +31,7 @@ function openPreferences(win) {
 
     saveButton.addEventListener('click', function(event) {
       body.removeChild(dialog);
+      settings.serverUrl = serverUrlInput.value;
     });
 
     cancelButton.addEventListener('click', function(event) {

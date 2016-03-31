@@ -73,6 +73,13 @@ iframe.onload = function() {
   windowBehaviour.closeWithEscKey(win, iframe.contentDocument);
 };
 
+if (settings.serverUrl) {
+  iframe.setAttribute('src', settings.serverUrl);
+}
+settings.watch('serverUrl', function (updatedServerUrl) {
+  iframe.setAttribute('src', updatedServerUrl);
+});
+
 cardNofitications.refresh(win);
 
 // Reload the app periodically until it loads
