@@ -19,72 +19,48 @@ module.exports = {
   settingsItems: function(win, keep) {
     var self = this;
     return [{
-      label: 'File',
-      submenu: this.createFilesMenu(win)
-    }, {
       label: 'Launch Dev Tools',
       click: function() {
         win.showDevTools();
       }
     }].map(function(item) {
-       var menuItem = new gui.MenuItem(item);
-       return menuItem;
-     });
-  },
-
-  /**
-   * Create the files submenu shown in the main one.
-   */
-  createFilesMenu: function(win) {
-    var self = this;
-    var menu = new gui.Menu();
-      menu.append(new gui.MenuItem({
-        label: 'Preferences ...',
-        click: function() {
-          preferences.openPreferences(win);
-        }
-      }));
-
-    return menu;
-  },
-
-  openPreferences: function (win) {
-
-    alert('this is asprta!');
+      var menuItem = new gui.MenuItem(item);
+      return menuItem;
+    });
   },
 
   /**
    * Create the menu bar for the given window, only on OS X.
    */
   loadMenuBar: function(win) {
-    if (!platform.isOSX) {
-      return;
-    }
-
-    var menu = new gui.Menu({
+    var menu = new nw.Menu({
       type: 'menubar'
     });
 
-    menu.createMacBuiltin('Now Assistant');
-    var submenu = menu.items[0].submenu;
-
-    submenu.insert(new gui.MenuItem({
-      type: 'separator'
-    }), 1);
-
-    // Add the main settings
-    this.settingsItems(win, true).forEach(function(item, index) {
-      submenu.insert(item, index + 2);
-    });
-
-    // Watch the items that have a 'setting' property
-    submenu.items.forEach(function(item) {
-      if (item.setting) {
-        settings.watch(item.setting, function(value) {
-          item.checked = value;
-        });
+    var fileSubmenu = new nw.Menu();
+    fileSubmenu.append(new nw.MenuItem({
+      label: 'Preferences ...',
+      click: function () {
+        preferences.openPreferences(win);
       }
-    });
+    }));
+
+    var devtools = new nw.Menu();
+    devtools.append(new nw.MenuItem({
+      label: 'Open DevTools',
+      click: function () {
+        win.showDevTools();
+      }
+    }));
+
+    menu.append(new nw.MenuItem({
+      label: 'File',
+      submenu: fileSubmenu
+    }));
+    menu.append(new nw.MenuItem({
+      label: 'Dev',
+      submenu: devtools
+    }));
 
     win.menu = menu;
   },
@@ -113,8 +89,8 @@ module.exports = {
     //
     menu.append(new gui.MenuItem({
       label: 'Preferences ...',
-      click: function () {
-        preferences.openPreferences(win);        
+      click: function() {
+        preferences.openPreferences(win);
       }
     }));
 
