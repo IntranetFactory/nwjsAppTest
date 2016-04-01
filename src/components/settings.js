@@ -10,7 +10,8 @@ var DEFAULT_SETTINGS = {
   asMenuBarAppOSX: false,
   windowState: {},
   theme: 'default',
-  serverUrl: 'https://mps.adenin.com'
+  serverUrl: 'https://mps.adenin.com',
+  firstTimeStart: true
 };
 
 var db = new Store(path.join(gui.App.dataPath, 'preferences.json'));

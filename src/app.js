@@ -10,6 +10,7 @@ var windowBehaviour = require('./components/window-behaviour');
 var notification = require('./components/notification');
 var dispatcher = require('./components/dispatcher');
 var cardNofitications = require('./components/cardNotifications');
+var preferences = require('./components/preferences');
 
 // Ensure there's an app shortcut for toast notifications to work on Windows
 if (platform.isWindows) {
@@ -73,9 +74,17 @@ iframe.onload = function() {
   windowBehaviour.closeWithEscKey(win, iframe.contentDocument);
 };
 
-if (settings.serverUrl) {
-  iframe.setAttribute('src', settings.serverUrl);
+if (settings.firstTimeStart) {
+  settings.firstTimeStart = false;
+  preferences.openPreferences(win);
+} else {
+  if (settings.serverUrl) {
+    iframe.setAttribute('src', settings.serverUrl);
+  } else {
+    preferences.openPreferences(win);
+  }
 }
+
 settings.watch('serverUrl', function (updatedServerUrl) {
   iframe.setAttribute('src', updatedServerUrl);
 });

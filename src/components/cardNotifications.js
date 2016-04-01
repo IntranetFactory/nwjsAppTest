@@ -112,30 +112,9 @@ function updateBadge(apiUrl) {
     request.end();
 
   });
-
-
-  // var xhr = new XMLHttpRequest();
-  // xhr.responseType = "json";
-  // xhr.withCredentials = true;
-  // xhr.open("GET", apiUrl, true);
-  //
-  // xhr.onreadystatechange = function() {
-  //   if (xhr.readyState === 4) {
-  //
-  //     if (status === 200 && statusText === "OK") {
-  //       var response = xhr.response;
-  //     } else if (status === 404 && statusText === "Not Found") {
-  //       // something special should be done here but its not specified yet
-  //     } else {
-  //       // set error icon on browserAction
-  //       setBadgeTextHelper("");
-  //       setExtensionIconHelper("red");
-  //     }
-  //   }
-  // };
-  //
-  // xhr.send();
 }
+
+var attachedToCookiesChanged = false;
 
 /*
  * this will be visible on the outsize
@@ -143,6 +122,14 @@ function updateBadge(apiUrl) {
 module.exports = {
   refresh: function(_win) {
     win = _win;
+
+    if(!attachedToCookiesChanged) {
+      attachedToCookiesChanged = true;
+      win.cookies.onChanged.addListener(function (change) {
+        refresh();
+      });
+    }
+
     refresh();
   }
 };
