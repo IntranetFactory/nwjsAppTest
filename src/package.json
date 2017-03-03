@@ -9,17 +9,18 @@
     "height": 600,
     "title": "NowAssistant",
     "icon": "images/icon_128.png",
-    "show": true
+    "show": true,
+    "toolbar": true
   },
   "webkit": {
     "plugin": true
   },
   "dependencies": {
-    "async": "^1.0.0",
-    "auto-launch": "^0.1.18",
+    "async": "^2.1.5",
+    "auto-launch": "^5.0.1",
     "jfs": "^0.2.5",
     "request": "^2.56.0",
-    "semver": "^4.3.5"
+    "semver": "^5.3.0"
   },
   "manifestUrl": "https://raw.githubusercontent.com/Aluxian/Facebook-Messenger-Desktop/master/src/package.json",
   "packages": {

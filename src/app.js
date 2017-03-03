@@ -1,5 +1,5 @@
-var gui = require('nw.gui');
-var win = gui.Window.get();
+
+var win = nw.Window.get();
 
 var platform = require('./components/platform');
 var updater = require('./components/updater');

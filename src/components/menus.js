@@ -1,5 +1,5 @@
-var gui = window.require('nw.gui');
-var clipboard = gui.Clipboard.get();
+
+var clipboard = nw.Clipboard.get();
 var AutoLaunch = require('auto-launch');
 var windowBehaviour = require('./window-behaviour');
 var dispatcher = require('./dispatcher');
@@ -24,7 +24,7 @@ module.exports = {
         win.showDevTools();
       }
     }].map(function(item) {
-      var menuItem = new gui.MenuItem(item);
+      var menuItem = new nw.MenuItem(item);
       return menuItem;
     });
   },
@@ -69,32 +69,32 @@ module.exports = {
    * Create the menu for the tray icon.
    */
   createTrayMenu: function(win) {
-    var menu = new gui.Menu();
+    var menu = new nw.Menu();
     var self = this;
     // Add the main settings
     // this.settingsItems(win, true).forEach(function(item) {
     //   menu.append(item);
     // });
 
-    // menu.append(new gui.MenuItem({
+    // menu.append(new nw.MenuItem({
     //   type: 'separator'
     // }));
 
-    // menu.append(new gui.MenuItem({
+    // menu.append(new nw.MenuItem({
     //   label: 'Show Now Assistant',
     //   click: function() {
     //     win.show();
     //   }
     // }));
     //
-    menu.append(new gui.MenuItem({
+    menu.append(new nw.MenuItem({
       label: 'Preferences ...',
       click: function() {
         preferences.openPreferences(win);
       }
     }));
 
-    menu.append(new gui.MenuItem({
+    menu.append(new nw.MenuItem({
       label: 'Quit Now Assistant',
       click: function() {
         win.close(true);
@@ -123,7 +123,7 @@ module.exports = {
       win.tray = null;
     }
 
-    var tray = new gui.Tray({
+    var tray = new nw.Tray({
       icon: 'images/icon_' + (platform.isOSX ? 'menubar.tiff' : 'icon_64.png')
     });
 
@@ -142,10 +142,10 @@ module.exports = {
    * Create a context menu for the window and document.
    */
   createContextMenu: function(win, window, document, targetElement) {
-    var menu = new gui.Menu();
+    var menu = new nw.Menu();
 
     if (targetElement.tagName.toLowerCase() == 'input') {
-      menu.append(new gui.MenuItem({
+      menu.append(new nw.MenuItem({
         label: "Cut",
         click: function() {
           clipboard.set(targetElement.value);
@@ -153,21 +153,21 @@ module.exports = {
         }
       }));
 
-      menu.append(new gui.MenuItem({
+      menu.append(new nw.MenuItem({
         label: "Copy",
         click: function() {
           clipboard.set(targetElement.value);
         }
       }));
 
-      menu.append(new gui.MenuItem({
+      menu.append(new nw.MenuItem({
         label: "Paste",
         click: function() {
           targetElement.value = clipboard.get();
         }
       }));
     } else if (targetElement.tagName.toLowerCase() == 'a') {
-      menu.append(new gui.MenuItem({
+      menu.append(new nw.MenuItem({
         label: "Copy Link",
         click: function() {
           var url = utils.skipFacebookRedirect(targetElement.href);
@@ -177,7 +177,7 @@ module.exports = {
     } else {
       var selection = window.getSelection().toString();
       if (selection.length > 0) {
-        menu.append(new gui.MenuItem({
+        menu.append(new nw.MenuItem({
           label: "Copy",
           click: function() {
             clipboard.set(selection);
