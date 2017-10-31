@@ -1,9 +1,9 @@
 ## Now Assistant for Desktop
 
-### Migration to nwjs v0.20.3
-- gulpfile and package.json files are updated to use nwjs v0.20.3
+### Migration to nwjs v0.26.2
+- gulpfile and package.json files are updated to use nwjs v0.26.2
 - project now uses nw-builder instead of node-webkit-builder
-- nw-builder is not yet updated to correctly build for nwjs v0.20.3
+- nw-builder is not yet updated to correctly build for nwjs v0.26.2
 - one has to manually apply a patch to make nw-builder work correctly
 
 #### Patching nw-builder
@@ -11,11 +11,11 @@
 - navigate to `<project-folder>/node-modules/gulp-nw-builder/node-modules/nw-builder/lib`
 - open `platform.js` file
 - apply [this pull request](https://github.com/nwjs/nw-builder/pull/301/files)
-- this pull requests updates nw-builder to correctly build with nwjs v0.20.3
+- this pull requests updates nw-builder to correctly build with nwjs v0.26.2
 
 ### How to install
 
-1. download nw.js version 0.20.3 from [here](http://dl.nwjs.io/v0.20.3/nwjs-v0.20.3-win-ia32.zip). Extract the archive to the folder of your choice. We call this `nwjsFolder`
+1. download nw.js version 0.26.2 from [here](http://dl.nwjs.io/v0.26.2/nwjs-v0.26.2-win-ia32.zip). Extract the archive to the folder of your choice. We call this `nwjsFolder`
 * install gulp from command line/terminal
       npm install -g gulp
 * clone the Now Assistant [repository](https://github.com/IntranetFactory/nwjsAppTest) to the folder of your choice. We call this `naFolder`
