@@ -56,7 +56,9 @@ function updateBadge(apiUrl) {
       method: 'GET',
       port: 443,
       headers: {
-        cookie: cookieStr
+        cookie: cookieStr,
+        'content-type': 'application/json',
+        accept: 'application/json'
       }
     };
 
